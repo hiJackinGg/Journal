@@ -3,6 +3,7 @@ package com.mycompany.journal.controllers;
 import com.mycompany.journal.db.model.Logpresence;
 import com.mycompany.journal.db.model.Manager;
 import com.mycompany.journal.db.model.Reason;
+import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,20 +23,17 @@ import java.util.*;
 public class LogpresenceController {
 
     @Autowired
-    private DelegationRepository temp;
+    private LogpresenceService logService;
 
     @Autowired
-    private LogpresenceRepository logRepository;
+    private ManagerService managerService;
 
     @Autowired
-    private ManagerRepository managerRepository;
-
-    @Autowired
-    private ReasonRepository reasonRepository;
+    private ReasonService reasonService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showLogs(ModelMap model) {
-        List<Logpresence> logList = logRepository.findAll();
+        List<Logpresence> logList = logService.findAll();
         model.addAttribute("logList", logList);
 
         return "logpresence_table";
@@ -44,12 +42,11 @@ public class LogpresenceController {
     @RequestMapping(value = "createLogStart", method = RequestMethod.GET)
     public String createLogStart(ModelMap model) {
 
-        List<Manager> managerList = managerRepository.findAll();
-        List<Reason> reasonList = reasonRepository.findAll();
+        List<Manager> managerList = managerService.findAll();
+        List<Reason> reasonList = reasonService.findAll();
 
         model.addAttribute("managerList", managerList);
         model.addAttribute("reasonList", reasonList);
-        //model.addAttribute("date", );
 
         return "logpresence_create";
     }
@@ -78,11 +75,11 @@ public class LogpresenceController {
         if(latenessTime.equals("none") != true)
             log.setLatenessTime(Integer.valueOf(latenessTime));
         if(managerId != 0)
-            log.setManager(managerRepository.findOne(managerId));
+            log.setManager(managerService.findById(managerId));
         if(reasonId != 0)
-            log.setReason(reasonRepository.findOne(reasonId));
+            log.setReason(reasonService.findById(reasonId));
 
-        logRepository.saveAndFlush(log);
+        logService.save(log);
 
         return "redirect:/logpresence";
     }
@@ -90,7 +87,7 @@ public class LogpresenceController {
     @RequestMapping(value = "deleteLog/{id}", method = RequestMethod.GET)
     public String deleteLog(
             @PathVariable long id, ModelMap model) {
-        logRepository.deleteById(id);
+        logService.delete(id);
 
         return "redirect:/logpresence";
     }
@@ -99,7 +96,7 @@ public class LogpresenceController {
     public String findLogs1(
             ModelMap model) {
 
-        List<Logpresence> logList = logRepository.findAllWhoNotLate();
+        List<Logpresence> logList = logService.findAllWhoNotLate();
         model.addAttribute("logList", logList);
 
         return "logpresence_table";
@@ -109,13 +106,10 @@ public class LogpresenceController {
     public String findLogs2(
             ModelMap model) {
 
-        /*List<Logpresence> logList = logRepository.findWhoMaxLate();
-        model.addAttribute("logList", logList);*/
+        List<Logpresence> logList = logService.findWhoMaxLate();
+        model.addAttribute("logList", logList);
 
-        List<Object[]> l = logRepository.temp();
-        model.addAttribute("l", l);
-
-        return "service_table";
+        return "logpresence_table";
     }
 
     @RequestMapping(value = "findLogs3", method = RequestMethod.GET)
@@ -136,7 +130,7 @@ public class LogpresenceController {
         } catch (ParseException ex) {
         }
 
-        List<Logpresence> logList = logRepository.findForPeriod(datef,datet);
+        List<Logpresence> logList = logService.findForPeriod(datef,datet);
         model.addAttribute("logList", logList);
 
         return "logpresence_table";

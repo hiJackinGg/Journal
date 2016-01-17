@@ -1,7 +1,6 @@
 package com.mycompany.journal.services;
 
-/**
- * Created by Denis on 13.01.16.
- */
-public interface ServService {
+import com.mycompany.journal.db.model.*;
+
+public interface ServService extends GenericService<Service> {
 }

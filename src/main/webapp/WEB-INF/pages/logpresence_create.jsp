@@ -45,7 +45,7 @@
     <select name="man" >
         <option value="0">none</option>
         <c:forEach items="${managerList}" var="manager">
-            <option value="${manager.getManagerId()}">${manager.getInitials()}</option>
+            <option value="${manager.getId()}">${manager.getInitials()}</option>
         </c:forEach>
     </select>
 
@@ -53,7 +53,7 @@
     <select name="res">
         <option value="0">none</option>
         <c:forEach items="${reasonList}" var="reason">
-            <option value="${reason.getReasonId()}">${reason.getReasonName()}</option>
+            <option value="${reason.getId()}">${reason.getName()}</option>
         </c:forEach>
     </select>
 

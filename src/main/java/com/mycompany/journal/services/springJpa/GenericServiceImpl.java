@@ -16,7 +16,7 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
     private static final String QUERY_COUNT_ALL = "SELECT COUNT(x) FROM %s x";
 
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
     /**
      * Persistent class that this service works with
      */
@@ -29,8 +29,9 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
     }
 
     @Override
-    public void save(T entity) {
+    public T save(T entity) {
 
+        return null;
     }
 
     @Override
@@ -40,11 +41,6 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
 
     @Override
     public void delete(T entity) {
-
-    }
-
-    @Override
-    public void update(T entity) {
 
     }
 
@@ -59,17 +55,12 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
     }
 
     @Override
-    public void deleteAll(Collection<T> entities) {
-
-    }
-
-    @Override
     public long getCount() {
         return 0;
     }
 
     @Override
-    public List<T> getSorted(String propertySortBy, boolean asc) {
+    public List<T> findSorted(String propertySortBy, boolean asc) {
         return null;
     }
 }

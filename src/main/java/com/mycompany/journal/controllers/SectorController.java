@@ -4,7 +4,7 @@ package com.mycompany.journal.controllers;
 @RequestMapping("/")*/
 public class SectorController {
     /*@Autowired
-    private SectorsRepository departmentRepository;
+    private SectorRepository departmentRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showDepartments(ModelMap model) {

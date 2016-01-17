@@ -1,6 +1,7 @@
 package com.mycompany.journal.controllers;
 
 import com.mycompany.journal.db.model.*;
+import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,17 +21,17 @@ import java.util.List;
 public class ManagerController {
 
     @Autowired
-    private ManagerRepository managerRepository;
+    private ManagerService managerService;
 
     @Autowired
-    private SectorsRepository sectorRepository;
+    private SectorService sectorService;
 
     @Autowired
-    private PositionRepository positionRepository;
+    private PositionService positionService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showManagers(ModelMap model) {
-        List<Manager> managerList = managerRepository.findAll();
+        List<Manager> managerList = managerService.findAll();
         model.addAttribute("managerList", managerList);
 
         return "manager_table";
@@ -38,8 +39,8 @@ public class ManagerController {
 
     @RequestMapping(value = "createManagerStart", method = RequestMethod.GET)
     public String createManagerStart(ModelMap model) {
-        List<Sector> sectorList = sectorRepository.findAll();
-        List<Position> positionList = positionRepository.findAll();
+        List<Sector> sectorList = sectorService.findAll();
+        List<Position> positionList = positionService.findAll();
 
         model.addAttribute("sectorList", sectorList);
         model.addAttribute("positionList", positionList);
@@ -65,11 +66,11 @@ public class ManagerController {
         manager.setPersonnel(personnel);
         manager.setEmail(email);
         if(sectorId != 0)
-        manager.setSector(sectorRepository.findOne(sectorId));
+        manager.setSector(sectorService.findById(sectorId));
         if(positionId != 0)
-        manager.setPosition(positionRepository.findOne(positionId));
+        manager.setPosition(positionService.findById(positionId));
 
-        managerRepository.saveAndFlush(manager);
+        managerService.save(manager);
 
 
         return "redirect:/";
@@ -80,7 +81,7 @@ public class ManagerController {
             @RequestParam(value = "sortOpt") String sortOpt,
             ModelMap model) {
 
-        List<Manager> managerList = managerRepository.findAll(new Sort(Sort.Direction.ASC, sortOpt));
+        List<Manager> managerList = managerService.findSorted(sortOpt, true);
         model.addAttribute("managerList", managerList);
 
         return "manager_table";
@@ -91,36 +92,25 @@ public class ManagerController {
             @RequestParam(value = "findOpt") String findOpt,
             @RequestParam(value = "title") String title,
             ModelMap model) {
-        List<Manager> managerList = new ArrayList<>();
 
-        switch(findOpt){
-            case "all": return "redirect:/";
-            case "firstName": managerList = managerRepository.findByFirstName(title);break;
-            case "lastName": managerList =  managerRepository.findByLastName(title);break;
-            case "middleName": managerList =  managerRepository.findByMiddleName(title);break;
-            case "personnel": managerList =  managerRepository.findByPersonnel(title);break;
-            case "email": managerList =  managerRepository.findByEmail(title);break;
-            case "position": managerList =  managerRepository.findByPositionName(title);break;
-            case "sector": managerList =  managerRepository.findBySectorName(title);break;
+        List<Manager> managerList = managerService.findOneProperty(findOpt, title);
 
-        }
-    //List<Manager> managerList = managerRepository.findAll(findOpt));
-    model.addAttribute("managerList", managerList);
+        model.addAttribute("managerList", managerList);
 
-    return "manager_table";
+        return "manager_table";
 }
 
     @RequestMapping(value = "deleteManager/{id}", method = RequestMethod.GET)
     public String deleteManager(
             @PathVariable long id, ModelMap model) {
-        managerRepository.deleteById(id);
+        managerService.delete(id);
 
         return "redirect:/";
     }
 
     @RequestMapping(value = "findAllManager",method = RequestMethod.GET)
     public String findAllManager(ModelMap model) {
-        List<Manager> managerList = managerRepository.findAll();
+        List<Manager> managerList = managerService.findAll();
         model.addAttribute("managerList", managerList);
 
         return "manager_table";

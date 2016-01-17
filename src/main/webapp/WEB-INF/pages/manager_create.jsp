@@ -60,7 +60,7 @@
     <select name="sec" >
         <option value="0">none</option>
         <c:forEach items="${sectorList}" var="sector">
-            <option value="${sector.getSectorId()}">${sector.getSectorName()}</option>
+            <option value="${sector.getId()}">${sector.getName()}</option>
         </c:forEach>
     </select>
 
@@ -68,7 +68,7 @@
     <select name="pos">
         <option value="0">none</option>
         <c:forEach items="${positionList}" var="position">
-            <option value="${position.getPositionId()}">${position.getPositionName()}</option>
+            <option value="${position.getId()}">${position.getName()}</option>
         </c:forEach>
     </select>
 

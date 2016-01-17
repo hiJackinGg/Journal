@@ -1,7 +1,16 @@
 package com.mycompany.journal.services;
 
-/**
- * Created by Denis on 13.01.16.
- */
-public interface LogpresenceService {
+import com.mycompany.journal.db.model.*;
+
+import java.util.Date;
+import java.util.List;
+
+public interface LogpresenceService extends GenericService<Logpresence> {
+
+    List<Logpresence> findAllWhoNotLate();
+
+    List<Logpresence> findWhoMaxLate();
+
+    List<Logpresence> findForPeriod(Date date1, Date date2);
+
 }

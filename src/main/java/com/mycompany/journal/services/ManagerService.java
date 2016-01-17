@@ -1,7 +1,11 @@
 package com.mycompany.journal.services;
 
-/**
- * Created by Denis on 13.01.16.
- */
-public interface ManagerService {
+import com.mycompany.journal.db.model.*;
+
+import java.util.List;
+
+public interface ManagerService extends GenericService<Manager> {
+
+    public List<Manager> findOneProperty(String propertyName, String value);
+
 }

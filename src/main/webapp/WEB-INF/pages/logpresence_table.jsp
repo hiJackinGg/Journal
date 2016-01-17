@@ -55,15 +55,15 @@
 
     <c:forEach items="${logList}" var="log">
         <tr>
-            <td>${log.getLogId()}</td>
+            <td>${log.getId()}</td>
             <td>${log.getManager().getFirstName()}</td>
             <td>${log.getManager().getLastName()}</td>
             <td>${log.getManager().getMiddleName()}</td>
-            <td>${log.getReason().getReasonName()}</td>
+            <td>${log.getReason().getName()}</td>
             <td>${log.getDateAbsence()}</td>
             <td>${log.getLatenessTime()}</td>
             <td>${log.getNote()}</td>
-            <td><a href="${pageContext.request.contextPath}/logpresence/deleteLog/${log.getLogId()}">delete</a>
+            <td><a href="${pageContext.request.contextPath}/logpresence/deleteLog/${log.getId()}">delete</a>
 
 
         </tr>

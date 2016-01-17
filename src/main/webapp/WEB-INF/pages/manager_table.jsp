@@ -53,15 +53,15 @@
 
     <c:forEach items="${managerList}" var="manager">
         <tr>
-            <td>${manager.getManagerId()}</td>
+            <td>${manager.getId()}</td>
             <td>${manager.getFirstName()}</td>
             <td>${manager.getLastName()}</td>
             <td>${manager.getMiddleName()}</td>
             <td>${manager.getPersonnel()}</td>
             <td>${manager.getEmail()}</td>
-            <td>${manager.getSector().getSectorName()}</td>
-            <td>${manager.getPosition().getPositionName()}</td>
-            <td><a href="${pageContext.request.contextPath}/deleteManager/${manager.getManagerId()}">delete</a></td>
+            <td>${manager.getSector().getName()}</td>
+            <td>${manager.getPosition().getName()}</td>
+            <td><a href="${pageContext.request.contextPath}/deleteManager/${manager.getId()}">delete</a></td>
         </tr>
     </c:forEach>
 

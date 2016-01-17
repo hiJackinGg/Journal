@@ -1,7 +1,6 @@
 package com.mycompany.journal.services;
 
-/**
- * Created by Denis on 13.01.16.
- */
-public interface SectorService {
+import com.mycompany.journal.db.model.*;
+
+public interface SectorService extends GenericService<Sector> {
 }
