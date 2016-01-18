@@ -17,6 +17,12 @@ public class Reason extends DomainObject {
         this.note = note;
     }
 
+    public Reason(long id, String name) {
+        this.id = id;
+        this.name = name;
+
+    }
+
     public String getName() {
         return name;
     }

@@ -14,6 +14,11 @@ public class Position extends DomainObject{
         this.name = name;
     }
 
+    public Position(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -19,6 +19,11 @@ public class Sector extends DomainObject {
         this.name = name;
     }
 
+    public Sector(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
