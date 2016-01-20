@@ -14,7 +14,7 @@ public interface GenericService<T extends DomainObject> {
 
     public void delete(T entity);
 
-    public T findById(long id);
+    public T findById(Long id);
 
     public void delete(Long id);
 

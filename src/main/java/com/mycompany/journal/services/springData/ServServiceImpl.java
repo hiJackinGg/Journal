@@ -22,7 +22,7 @@ public class ServServiceImpl implements ServService {
     }
 
     @Override
-    public Service findById(long id) {
+    public Service findById(Long id) {
         return null;
     }
 

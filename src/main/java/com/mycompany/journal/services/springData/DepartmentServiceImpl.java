@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department findById(long id) {
+    public Department findById(Long id) {
         return null;
     }
 

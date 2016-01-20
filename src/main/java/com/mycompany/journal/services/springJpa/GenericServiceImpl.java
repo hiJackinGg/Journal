@@ -45,7 +45,7 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
     }
 
     @Override
-    public T findById(long id) {
+    public T findById(Long id) {
         return null;
     }
 

@@ -34,7 +34,7 @@ public class SectorServiceImpl implements SectorService {
     }
 
     @Override
-    public Sector findById(long id) {
+    public Sector findById(Long id) {
         return sectorRepository.findOne(id);
     }
 
@@ -51,6 +51,11 @@ public class SectorServiceImpl implements SectorService {
 
     @Override
     public List<Sector> findSorted(String propertySortBy, boolean asc) {
+
+        if (propertySortBy == null || propertySortBy.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
 
         Sort.Direction direction;
 

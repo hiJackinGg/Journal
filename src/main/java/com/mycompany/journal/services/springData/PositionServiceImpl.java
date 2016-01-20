@@ -17,6 +17,12 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public Position save(Position entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return positionRepository.save(entity);
     }
 
@@ -28,16 +34,34 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public void delete(Position entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         positionRepository.delete(entity);
     }
 
     @Override
-    public Position findById(long id) {
+    public Position findById(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return positionRepository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         positionRepository.delete(id);
 
     }
@@ -49,6 +73,11 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public List<Position> findSorted(String propertySortBy, boolean asc) {
+
+        if (propertySortBy == null || propertySortBy.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
 
         Sort.Direction direction;
 

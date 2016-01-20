@@ -18,6 +18,12 @@ public class LogpresenceServiceImpl implements LogpresenceService {
 
     @Override
     public Logpresence save(Logpresence entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return logpresenceRepository.save(entity);
     }
 
@@ -29,16 +35,34 @@ public class LogpresenceServiceImpl implements LogpresenceService {
 
     @Override
     public void delete(Logpresence entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         logpresenceRepository.delete(entity);
     }
 
     @Override
-    public Logpresence findById(long id) {
+    public Logpresence findById(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return logpresenceRepository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         logpresenceRepository.delete(id);
 
     }
@@ -50,6 +74,11 @@ public class LogpresenceServiceImpl implements LogpresenceService {
 
     @Override
     public List<Logpresence> findSorted(String propertySortBy, boolean asc) {
+
+        if (propertySortBy == null || propertySortBy.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
 
         Sort.Direction direction;
 
@@ -74,5 +103,8 @@ public class LogpresenceServiceImpl implements LogpresenceService {
     @Override
     public List<Logpresence> findForPeriod(Date date1, Date date2) {
         return logpresenceRepository.findForPeriod(date1, date2);
+    }
+
+    public void setLogpresenceRepository(LogpresenceRepository logpresenceRepository) {
     }
 }

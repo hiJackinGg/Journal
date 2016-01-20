@@ -20,6 +20,12 @@ public class ReasonServiceImpl implements ReasonService {
 
     @Override
     public Reason save(Reason entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return reasonRepository.save(entity);
     }
 
@@ -31,16 +37,34 @@ public class ReasonServiceImpl implements ReasonService {
 
     @Override
     public void delete(Reason entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         reasonRepository.delete(entity);
     }
 
     @Override
-    public Reason findById(long id) {
+    public Reason findById(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return reasonRepository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         reasonRepository.delete(id);
 
     }
@@ -52,6 +76,11 @@ public class ReasonServiceImpl implements ReasonService {
 
     @Override
     public List<Reason> findSorted(String propertySortBy, boolean asc) {
+
+        if (propertySortBy == null || propertySortBy.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
 
         Sort.Direction direction;
 

@@ -19,14 +19,13 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerRepository managerRepository;
 
-    @Autowired
-    private SectorRepository sectorRepository;
-
-    @Autowired
-    private PositionRepository positionRepository;
-
     @Override
     public Manager save(Manager entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return managerRepository.save(entity);
     }
 
@@ -38,16 +37,34 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public void delete(Manager entity) {
+
+        if (entity == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         managerRepository.delete(entity);
     }
 
     @Override
-    public Manager findById(long id) {
+    public Manager findById(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         return managerRepository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "Argument is null !");
+        }
+
         managerRepository.delete(id);
 
     }
@@ -59,6 +76,11 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Manager> findSorted(String propertySortBy, boolean asc) {
+
+        if (propertySortBy == null || propertySortBy.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
 
         Direction direction;
 
@@ -72,6 +94,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Manager> findOneProperty(String propertyName, String value){
+
+        if (propertyName == null || propertyName.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
+
         switch(propertyName){
             case "all": return managerRepository.findAll();
             case "firstName": return managerRepository.findByFirstName(value);
@@ -85,4 +113,8 @@ public class ManagerServiceImpl implements ManagerService {
         }
 
     }
+
+    public void setManagerRepository(ManagerRepository managerRepository) {
+    }
+
 }
