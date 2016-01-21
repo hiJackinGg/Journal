@@ -108,12 +108,15 @@ public abstract class TestGenericServiceAbstract <T extends DomainObject> {
         entity1 = null;
     }
 
-    @Test(expected = GeneralServiceException.class)
+    @Test
     public void testDeleteNonexistentEntity(){
         long cnt = getService().getCount();
 
-        // deleting nonexistent entity
+        //try to delete nonexistent entity
         getService().delete(System.nanoTime());
+
+        //nothing should happen
+        assertEquals(cnt, getService().getCount());
 
     }
 

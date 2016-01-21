@@ -10,7 +10,7 @@ public class Department extends DomainObject  {
 
     private String name;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     private Collection<Service> services = new ArrayList<>();
 
     public Department() {

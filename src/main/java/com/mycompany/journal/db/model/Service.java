@@ -14,7 +14,7 @@ public class Service extends DomainObject{
     @JoinColumn(name = "DepartmentID")
     private Department department;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     private Collection<Sector> sectors = new ArrayList<>();;
 
 

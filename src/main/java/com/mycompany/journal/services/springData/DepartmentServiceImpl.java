@@ -2,12 +2,13 @@ package com.mycompany.journal.services.springData;
 
 import com.mycompany.journal.db.model.Department;
 import com.mycompany.journal.services.DepartmentService;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Denis on 13.01.16.
- */
+@Service()
 public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department save(Department entity) {

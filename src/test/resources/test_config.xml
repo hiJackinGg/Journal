@@ -47,13 +47,18 @@
 
         </jdbc:embedded-database>
 
-    <bean name="managerService" class="com.mycompany.journal.services.springData.ManagerServiceImpl">
+    <bean name="springDataJpaManagerService" class="com.mycompany.journal.services.springData.ManagerServiceImpl">
         <property name="managerRepository" ref="managerRepository" />
     </bean>
 
-    <bean name="logpresenceService" class="com.mycompany.journal.services.springData.LogpresenceServiceImpl">
+    <bean name="springDataJpaLogpresenceService"  class="com.mycompany.journal.services.springData.LogpresenceServiceImpl">
         <property name="logpresenceRepository" ref="logpresenceRepository" />
+    </bean>
 
+    <bean name="springJpaManagerService" class="com.mycompany.journal.services.springJpa.ManagerServiceImpl">
+    </bean>
+
+    <bean name="springJpaLogpresenceService"  class="com.mycompany.journal.services.springJpa.LogpresenceServiceImpl">
     </bean>
 
 </beans>

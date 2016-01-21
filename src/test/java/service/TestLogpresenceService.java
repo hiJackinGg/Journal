@@ -5,14 +5,16 @@ import com.mycompany.journal.db.model.Manager;
 import com.mycompany.journal.services.GenericService;
 import com.mycompany.journal.services.LogpresenceService;
 import com.mycompany.journal.services.ManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
 
 public class TestLogpresenceService extends TestGenericServiceAbstract<Logpresence> {
+
     @Override
     protected GenericService<Logpresence> getService() {
-        return (LogpresenceService) appContext.getBean("logpresenceService");
+        return (LogpresenceService) appContext.getBean("springDataJpaLogpresenceService");
     }
 
     @Override

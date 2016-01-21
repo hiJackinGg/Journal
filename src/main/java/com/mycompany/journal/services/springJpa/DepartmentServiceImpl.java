@@ -2,15 +2,16 @@ package com.mycompany.journal.services.springJpa;
 
 import com.mycompany.journal.db.model.*;
 import com.mycompany.journal.services.*;
+import org.springframework.stereotype.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Denis on 13.01.16.
- */
+@Service
 public class DepartmentServiceImpl extends GenericServiceImpl<Department> implements DepartmentService {
-    public DepartmentServiceImpl(Class<Department> persistentClass) {
-        super(persistentClass);
+    public DepartmentServiceImpl() {
+        super(Department.class);
     }
 
 }

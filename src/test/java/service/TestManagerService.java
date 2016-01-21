@@ -18,7 +18,7 @@ public class TestManagerService extends TestGenericServiceAbstract<Manager> {
     @Override
     protected GenericService<Manager> getService() {
 
-        return (ManagerService) appContext.getBean("managerService");
+        return (ManagerService) appContext.getBean("springDataJpaManagerService");
     }
 
     @Override
