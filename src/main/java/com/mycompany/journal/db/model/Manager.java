@@ -3,6 +3,18 @@ package com.mycompany.journal.db.model;
 import javax.persistence.*;
 
 @Entity
+@SqlResultSetMapping(name="ManagersWithCount",
+        entities=@EntityResult(entityClass=Manager.class),
+        columns = { @ColumnResult(name = "total")})
+@NamedNativeQuery(name="Manager.findAllWithCount",
+        query="SELECT a.*, b.total" +
+                "        FROM manager a" +
+                "        cross join (SELECT" +
+                "        b.id,\n" +
+                "        COUNT(*) as total" +
+                "        FROM manager b" +
+                "        ) b limit ?1",
+        resultSetMapping="ManagersWithCount")
 public class Manager extends DomainObject {
 
     private String firstName;
