@@ -1,0 +1,196 @@
+body {
+    margin : 0;
+    padding : 0;
+    font : 76% "Trebuchet MS", verdana, arial, sans-serif;
+    background : #2e2e2e;
+    color : #333;
+}
+#container {
+    width : 930px;
+    margin-left : auto;
+    margin-right : auto;
+    padding : 0;
+    border : 5px solid #336633;
+    background : #e9eee4;
+    color : #333;
+}
+#topimg {
+    height : 150px;
+    padding : 0;
+    margin : 0;
+    background : #417c2c url(img/topimg.jpg) no-repeat;
+    color : #333;
+}
+#navcontainer ul {
+    float : left;
+    width : 100%;
+    padding-left : 0;
+    margin : 0 0 20px 0;
+    font-size : 110%;
+    border-top : 1px solid #fff;
+    border-bottom : 1px solid #fff;
+    background : #417c2c;
+    color : #333;
+}
+#navcontainer ul li {
+    display : inline;
+}
+#navcontainer ul li a {
+    float : left;
+    padding : 0.2em 1em;
+    text-decoration : none;
+    border-right : 1px solid #fff;
+    background : #336633;
+    color : #fff;
+}
+#navcontainer ul li a:hover {
+    background : #91ae00;
+    color : #000;
+}
+#content {
+    margin : 0 0 5px 170px;
+    padding : 5px;
+    background : inherit;
+    color : #333;
+}
+#content a:link, #content a:visited {
+    text-decoration : underline;
+    background : inherit;
+    color : #4e6811;
+}
+#content a:hover {
+    background : inherit;
+    color : #996681;
+}
+#sidebar {
+    float : left;
+    width : 160px;
+    margin : 0 10px 0 0;
+    padding : 5px;
+    border-right : 1px dashed #999;
+    background : #e9eee4;
+    color : #333;
+}
+.sidemenu ul {
+    list-style-type : none;
+    text-align : left;
+}
+.sidemenu ul li {
+    display : block;
+    color : #666;
+    background : inherit;
+}
+.sidemenu ul li a {
+    background : transparent url(img/list-off.gif) no-repeat left center;
+    padding-left : 15px;
+    font : normal 11px "Lucida Grande", "Lucida Sans Unicode", verdana, lucida, sans-serif;
+    text-decoration : none;
+    color : #000;
+}
+.sidemenu ul li a:hover {
+    background : transparent url(img/list-on.gif) no-repeat left center;
+    color : #666;
+}
+.sidemenu ul li a#current {
+    background : transparent url(img/list-active.gif) no-repeat left center;
+    color : #666;
+}
+#bottomimg {
+    height : 50px;
+    padding : 0;
+    margin : 0;
+    border-top : 1px solid #fff;
+    background-color : #336633;
+    color : #333;
+}
+#bottomimg h1 {
+    float : left;
+    margin : 10px 0 0 5px;
+    font-size : 150%;
+    color : #fff;
+    background : #336633;
+}
+#footer {
+    clear : both;
+    padding : 5px;
+    margin : 0;
+    font-size : 90%;
+    border-top : 1px solid #fff;
+    background : #417c2c;
+    color : #333;
+}
+#footer a:link, #footer a:visited {
+    text-decoration : none;
+    background-color : inherit;
+    color : #fff;
+}
+#footer a:hover {
+    border-bottom : 1px dashed #eee;
+    background-color : inherit;
+    color : #333;
+}
+p {
+    margin : 15px;
+}
+h1 {
+    margin-top : 10px;
+    padding : 0;
+    font-size : 140%;
+    text-transform : uppercase;
+    color : #336633;
+    background-color : inherit;
+}
+h2 {
+    margin : 10px 0 0 5px;
+    padding-left : 10px;
+    font-size : 120%;
+    text-transform : uppercase;
+    letter-spacing : 5px;
+    color : #fff;
+    background : #417c2c;
+}
+.img {
+    float : left;
+    padding : 10px;
+    border : none;
+}
+.img a {
+    border : none;
+}
+
+
+
+
+input[type=text] {padding:5px; border:2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+input[type=text]:focus {border-color:#333; }
+
+input[type=submit] {padding:5px 15px; background:#ccc; border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; }
+
+
+
+
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
