@@ -10,22 +10,26 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class LogpresenceServiceImpl extends GenericServiceImpl<Logpresence> implements LogpresenceService {
     public LogpresenceServiceImpl() {
         super(Logpresence.class);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Logpresence> findAllWhoNotLate() {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Logpresence> findWhoMaxLate() {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Logpresence> findForPeriod(Date date1, Date date2) {
         return null;
     }

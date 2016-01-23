@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class PositionServiceImpl extends GenericServiceImpl<Position> implements PositionService {
     public PositionServiceImpl() {
         super(Position.class);

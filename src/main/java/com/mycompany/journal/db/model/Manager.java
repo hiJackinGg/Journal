@@ -1,6 +1,8 @@
 package com.mycompany.journal.db.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @SqlResultSetMapping(name="ManagersWithCount",
@@ -10,7 +12,7 @@ import javax.persistence.*;
         query="SELECT a.*, b.total" +
                 "        FROM manager a" +
                 "        cross join (SELECT" +
-                "        b.id,\n" +
+                "        b.id," +
                 "        COUNT(*) as total" +
                 "        FROM manager b" +
                 "        ) b limit ?1",
@@ -32,6 +34,19 @@ public class Manager extends DomainObject {
     @ManyToOne
     @JoinColumn(name = "positionID")
     private Position position;
+
+    /**
+     * Boss of the current manager
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentManagerID")
+    Manager parent;
+
+    /**
+     *Subordinates of the current manager
+     */
+    @OneToMany(mappedBy = "parent")
+    List<Manager> children = new ArrayList<>();
 
     public Manager() {
     }

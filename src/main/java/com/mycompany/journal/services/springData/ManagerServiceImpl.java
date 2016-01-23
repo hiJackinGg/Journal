@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 
 import java.util.*;
 
-@Service
+@Service("springDataJpaManagerService")
 public class ManagerServiceImpl implements ManagerService {
 
     @Autowired

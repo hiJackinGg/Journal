@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Service
+@Service("springDataJpaSectorService")
 public class SectorServiceImpl implements SectorService {
     
     @Autowired

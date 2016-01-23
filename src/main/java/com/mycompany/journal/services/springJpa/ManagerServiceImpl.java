@@ -10,12 +10,14 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class ManagerServiceImpl extends GenericServiceImpl<Manager> implements ManagerService {
     public ManagerServiceImpl() {
         super(Manager.class);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Manager> findOneProperty(String propertyName, String value) {
         return null;
     }

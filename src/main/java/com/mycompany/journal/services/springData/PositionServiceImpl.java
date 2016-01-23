@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("springDataJpaPositionService")
 public class PositionServiceImpl implements PositionService {
 
     @Autowired

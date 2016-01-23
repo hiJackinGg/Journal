@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("springDataJpaReasonService")
 public class ReasonServiceImpl implements ReasonService {
     
     @Autowired

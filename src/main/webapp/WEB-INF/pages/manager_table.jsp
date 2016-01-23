@@ -16,7 +16,7 @@
     <div class="sidemenu">
 
         <ul>
-            <li><a href="${pageContext.request.contextPath}">Managers</a></li>
+            <li><a href="${pageContext.request.contextPath}/manager">Managers</a></li>
             <li><a href="${pageContext.request.contextPath}/position" >Positions</a></li>
             <li><a href="${pageContext.request.contextPath}/sector">Sectors</a></li>
             <li><a href="${pageContext.request.contextPath}/logpresence">Log presence</a></li>

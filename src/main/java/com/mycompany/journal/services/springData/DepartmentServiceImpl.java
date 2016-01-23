@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service()
+@Service("springDataJpaDepartmentService")
 public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department save(Department entity) {

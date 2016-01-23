@@ -6,6 +6,7 @@ import com.mycompany.journal.db.model.Reason;
 import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,15 @@ import java.util.*;
 @RequestMapping("/logpresence")
 public class LogpresenceController {
 
+    @Qualifier("springDataJpaLogpresenceService")
     @Autowired
     private LogpresenceService logService;
 
+    @Qualifier("springDataJpaManagerService")
     @Autowired
     private ManagerService managerService;
 
+    @Qualifier("springDataJpaReasonService")
     @Autowired
     private ReasonService reasonService;
 

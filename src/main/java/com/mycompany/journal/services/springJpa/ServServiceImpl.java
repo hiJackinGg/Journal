@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @org.springframework.stereotype.Service
+@Transactional
 public class ServServiceImpl extends GenericServiceImpl<Service> implements ServService {
     public ServServiceImpl() {
         super(Service.class);

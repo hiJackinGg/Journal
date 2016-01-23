@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class ReasonServiceImpl extends GenericServiceImpl<Reason> implements ReasonService {
     public ReasonServiceImpl() {
         super(Reason.class);

@@ -4,6 +4,7 @@ import com.mycompany.journal.db.model.*;
 import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,15 +18,18 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/manager")
 public class ManagerController {
 
+    @Qualifier("springDataJpaManagerService")
     @Autowired
     private ManagerService managerService;
 
+    @Qualifier("springDataJpaSectorService")
     @Autowired
     private SectorService sectorService;
 
+    @Qualifier("springDataJpaPositionService")
     @Autowired
     private PositionService positionService;
 
@@ -73,7 +77,7 @@ public class ManagerController {
         managerService.save(manager);
 
 
-        return "redirect:/";
+        return "redirect:/manager";
     }
 
     @RequestMapping(value = "sortManagers", method = RequestMethod.GET)
@@ -105,7 +109,7 @@ public class ManagerController {
             @PathVariable long id, ModelMap model) {
         managerService.delete(id);
 
-        return "redirect:/";
+        return "redirect:/manager";
     }
 
     @RequestMapping(value = "findAllManager",method = RequestMethod.GET)

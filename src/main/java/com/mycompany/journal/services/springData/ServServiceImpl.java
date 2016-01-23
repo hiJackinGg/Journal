@@ -3,8 +3,10 @@ package com.mycompany.journal.services.springData;
 import com.mycompany.journal.db.model.Service;
 import com.mycompany.journal.services.ServService;
 
+
 import java.util.List;
 
+@org.springframework.stereotype.Service("springDataJpaServService")
 public class ServServiceImpl implements ServService {
     @Override
     public Service save(Service entity) {
