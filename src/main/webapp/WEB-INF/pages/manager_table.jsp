@@ -18,10 +18,8 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/manager">Managers</a></li>
             <li><a href="${pageContext.request.contextPath}/position" >Positions</a></li>
-            <li><a href="${pageContext.request.contextPath}/sector">Sectors</a></li>
+            <li><a href="${pageContext.request.contextPath}/subdivision">Subdivisions</a></li>
             <li><a href="${pageContext.request.contextPath}/logpresence">Log presence</a></li>
-            <li><a href="${pageContext.request.contextPath}/service">Service</a></li>
-            <li><a href="${pageContext.request.contextPath}/department">Department</a></li>
             <li><a href="${pageContext.request.contextPath}/delegation">Delegation</a></li>
             <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
             <li><a href="${pageContext.request.contextPath}/reason">Reason</a></li>
@@ -43,7 +41,7 @@
         <th>Отчество</th>
         <th>Код</th>
         <th>email</th>
-        <th>Сектор</th>
+        <th>Подразделение</th>
         <th>Должность</th>
     </tr>
 
@@ -59,7 +57,7 @@
             <td>${manager.getMiddleName()}</td>
             <td>${manager.getPersonnel()}</td>
             <td>${manager.getEmail()}</td>
-            <td>${manager.getSector().getName()}</td>
+            <td>${manager.getSubdivision().getName()}</td>
             <td>${manager.getPosition().getName()}</td>
             <td><a href="${pageContext.request.contextPath}/deleteManager/${manager.getId()}">delete</a></td>
         </tr>

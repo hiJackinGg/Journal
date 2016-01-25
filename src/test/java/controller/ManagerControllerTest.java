@@ -32,12 +32,12 @@ import static org.mockito.Mockito.when;
 public class ManagerControllerTest extends AbstractControllerTest {
 
     private final List<Manager> managers = new ArrayList<Manager>();
-    private final List<Sector> sectors = new ArrayList<Sector>();
+    private final List<Subdivision> subdivisions = new ArrayList<Subdivision>();
     private final List<Position> positions = new ArrayList<Position>();
 
     private ManagerService managerService;
 
-    private SectorService sectorService;
+    private SubdivisionService sectorService;
 
     private PositionService positionService;
 
@@ -50,7 +50,7 @@ public class ManagerControllerTest extends AbstractControllerTest {
         manager.setLastName("Smith");
         managers.add(manager);
 
-        sectors.add(new Sector(1L, "QA"));
+        subdivisions.add(new Subdivision(1L, "QA"));
         positions.add(new Position(1L, "Middle java developer"));
     }
 
@@ -84,7 +84,7 @@ public class ManagerControllerTest extends AbstractControllerTest {
         newManager.setFirstName("John");
         newManager.setLastName("Smith");
 
-        sectorService = mock(SectorService.class);
+        sectorService = mock(SubdivisionService.class);
         positionService = mock(PositionService.class);
 
         managerService = mock(ManagerService.class);
@@ -121,10 +121,10 @@ public class ManagerControllerTest extends AbstractControllerTest {
     @Test
     public void testCreateManagerStart() throws Exception {
 
-        sectorService = mock(SectorService.class);
+        sectorService = mock(SubdivisionService.class);
         positionService = mock(PositionService.class);
 
-        when(sectorService.findAll()).thenReturn(sectors);
+        when(sectorService.findAll()).thenReturn(subdivisions);
         when(positionService.findAll()).thenReturn(positions);
 
         ManagerController managerController = new ManagerController();
@@ -139,11 +139,11 @@ public class ManagerControllerTest extends AbstractControllerTest {
         assertNotNull(result);
         assertEquals(result, "manager_create");
 
-        List<Sector> modelSectors = (List<Sector>) model.get("sectorList");
+        List<Subdivision> modelSubdivisions = (List<Subdivision>) model.get("sectorList");
         List<Position> modelPositions = (List<Position>) model.get("positionList");
 
 
-        assertEquals(1, modelSectors.size());
+        assertEquals(1, modelSubdivisions.size());
         assertEquals(1, modelPositions.size());
     }
 

@@ -20,7 +20,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Long > {
 
     List<Manager> findByEmail(String title);
 
-    List<Manager> findBySectorName(String title);
+    List<Manager> findBySubdivisionName(String title);
 
     List<Manager> findByPositionName(String title);
 

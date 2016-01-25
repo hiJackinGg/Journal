@@ -28,8 +28,8 @@ public class Manager extends DomainObject {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "sectorID")
-    private Sector sector;
+    @JoinColumn(name = "subdivisionID")
+    private Subdivision subdivision;
 
     @ManyToOne
     @JoinColumn(name = "positionID")
@@ -59,12 +59,12 @@ public class Manager extends DomainObject {
         this.position = position;
     }
 
-    public Sector getSector() {
-        return sector;
+    public Subdivision getSector() {
+        return subdivision;
     }
 
-    public void setSector(Sector sector) {
-        this.sector = sector;
+    public void setSector(Subdivision sector) {
+        this.subdivision = sector;
     }
 
     public String getEmail() {

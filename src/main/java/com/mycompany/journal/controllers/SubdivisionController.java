@@ -2,12 +2,9 @@ package com.mycompany.journal.controllers;
 
 /*@Controller
 @RequestMapping("/")*/
-public class DepartmentController {
-/*
-    //@Autowired
-    //FormDataService formDataService;
-   @Autowired
-   private DepartmentsRepository departmentRepository;
+public class SubdivisionController {
+    /*@Autowired
+    private SectorRepository departmentRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showDepartments(ModelMap model) {
@@ -33,5 +30,4 @@ public class DepartmentController {
 
         return "redirect:/";
     }*/
-
 }

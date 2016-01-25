@@ -25,9 +25,9 @@ public class ManagerController {
     @Autowired
     private ManagerService managerService;
 
-    @Qualifier("springDataJpaSectorService")
+    @Qualifier("springDataJpaSubdivisionService")
     @Autowired
-    private SectorService sectorService;
+    private SubdivisionService subdivisionService;
 
     @Qualifier("springDataJpaPositionService")
     @Autowired
@@ -43,10 +43,10 @@ public class ManagerController {
 
     @RequestMapping(value = "createManagerStart", method = RequestMethod.GET)
     public String createManagerStart(ModelMap model) {
-        List<Sector> sectorList = sectorService.findAll();
+        List<Subdivision> subdivisionList = subdivisionService.findAll();
         List<Position> positionList = positionService.findAll();
 
-        model.addAttribute("sectorList", sectorList);
+        model.addAttribute("subdivisionList", subdivisionList);
         model.addAttribute("positionList", positionList);
 
         return "manager_create";
@@ -59,7 +59,7 @@ public class ManagerController {
             @RequestParam(value = "middleName") String middleName,
             @RequestParam(value = "personnel") String personnel,
             @RequestParam(value = "email") String email,
-            @RequestParam(value = "sec") long sectorId,
+            @RequestParam(value = "sec") long subdivisionId,
             @RequestParam(value = "pos") long positionId,
             ModelMap model) {
 
@@ -69,8 +69,8 @@ public class ManagerController {
         manager.setMiddleName(middleName);
         manager.setPersonnel(personnel);
         manager.setEmail(email);
-        if(sectorId != 0)
-        manager.setSector(sectorService.findById(sectorId));
+        if(subdivisionId != 0)
+        manager.setSector(subdivisionService.findById(subdivisionId));
         if(positionId != 0)
         manager.setPosition(positionService.findById(positionId));
 

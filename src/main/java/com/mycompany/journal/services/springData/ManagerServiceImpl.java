@@ -4,7 +4,7 @@ import com.mycompany.journal.db.model.*;
 import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.ManagerRepository;
 import com.mycompany.journal.services.springData.repositories.PositionRepository;
-import com.mycompany.journal.services.springData.repositories.SectorRepository;
+import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,7 +108,7 @@ public class ManagerServiceImpl implements ManagerService {
             case "personnel": return managerRepository.findByPersonnel(value);
             case "email": return managerRepository.findByEmail(value);
             case "position": return managerRepository.findByPositionName(value);
-            case "sector": return managerRepository.findBySectorName(value);
+            case "sector": return managerRepository.findBySubdivisionName(value);
             default: return Collections.unmodifiableList(new ArrayList<Manager>());
         }
 
