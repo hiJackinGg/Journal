@@ -40,13 +40,33 @@ public class Manager extends DomainObject {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentManagerID")
-    Manager parent;
+    Manager boss;
 
     /**
      *Subordinates of the current manager
      */
-    @OneToMany(mappedBy = "parent")
-    List<Manager> children = new ArrayList<>();
+    @OneToMany(mappedBy = "boss")
+    List<Manager> subordinates = new ArrayList<>();
+
+
+    /**
+     * managers which current manager(boss) delegated his subordinates
+     */
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "delegatedFrom")
+    private List<Manager> delegatedTo = new ArrayList<>();
+
+
+    /**
+     * managers which subordinates are delegated to the current manager
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Delegation",
+            joinColumns =
+            @JoinColumn(name = "toManagerId"),
+            inverseJoinColumns =
+            @JoinColumn(name = "fromManagerId"),
+            uniqueConstraints = {@UniqueConstraint(columnNames={"toManagerId", "fromManagerId"})})
+    private List<Manager> delegatedFrom = new ArrayList<>();
 
     public Manager() {
     }
