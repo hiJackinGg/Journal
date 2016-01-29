@@ -7,27 +7,30 @@
              http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
-    <http access-denied-page="/error403.jsp">
-        <intercept-url pattern="/manager*" access="ROLE_USER"/>
-        <intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS"/>
-        <form-login login-page="/login.jsp" default-target-url="/manager" authentication-failure-url="/login.jsp?error=true"/>
-        <logout logout-url="/logout" logout-success-url="/index"/>
+    <http use-expressions="true" access-denied-page="/accessDenied">
+        <intercept-url pattern="/manager" access="hasRole('ROLE_USER') "/>
+        <intercept-url pattern="/logpresence" access="hasRole('ROLE_USER') "/>
+        <intercept-url pattern="/createManagerStart" access="hasRole('ROLE_ADMIN') "/>
+
+        <form-login login-page="/login"
+                    default-target-url="/managers"
+                    authentication-failure-url="/login?error=true"/>
+        <logout logout-success-url="/login"/>
         <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
-        <remember-me/>
+        <remember-me data-source-ref="dataSource"/>
     </http>
+
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER"/>
-                <user name="user1" password="1111" authorities="ROLE_USER"/>
-            </user-service>
+            <jdbc-user-service
+                    data-source-ref="dataSource"
+                    users-by-username-query="select username, password, enabled from login where username=?"
+                    authorities-by-username-query="select username, role from roles inner join login
+                                                    on login.id = roles.loginID where login.username =?"
+            />
+
         </authentication-provider>
     </authentication-manager>
-    <!--<authentication-manager>-->
-        <!--<authentication-provider>-->
-            <!--<jdbc-user-service data-source-ref="dataSource" />-->
-        <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
 
 
 </beans:beans>
