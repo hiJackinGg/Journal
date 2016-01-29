@@ -1,5 +1,10 @@
 package com.mycompany.journal.db.model;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -7,8 +12,9 @@ import java.util.Date;
 @Entity
 public class Logpresence extends DomainObject {
 
-    @Temporal(TemporalType.DATE)
-    private Date dateAbsence;
+    @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private DateTime dateAbsence;
 
     private Integer latenessTime;
 
@@ -57,11 +63,11 @@ public class Logpresence extends DomainObject {
         this.latenessTime = latenessTime;
     }
 
-    public Date getDateAbsence() {
+    public DateTime getDateAbsence() {
         return dateAbsence;
     }
 
-    public void setDateAbsence(Date dateAbsence) {
+    public void setDateAbsence(DateTime dateAbsence) {
         this.dateAbsence = dateAbsence;
     }
 }
