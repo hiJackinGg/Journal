@@ -2,7 +2,12 @@ package com.mycompany.journal.db.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+/**
+ * managers are loaded lazy and it's not very good but it realize recursion.
+ */
 
 @Entity
 @SqlResultSetMapping(name="ManagersWithCount",
@@ -27,11 +32,11 @@ public class Manager extends DomainObject {
 
     private String email;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subdivisionID")
     private Subdivision subdivision;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "positionID")
     private Position position;
 
@@ -52,8 +57,8 @@ public class Manager extends DomainObject {
     /**
      * managers which current manager(boss) delegated his subordinates
      */
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "delegatedFrom")
-    private List<Manager> delegatedTo = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "managerDelegatedFrom")
+    private List<Manager> managerDelegatedTo = new ArrayList<>();
 
 
     /**
@@ -66,7 +71,7 @@ public class Manager extends DomainObject {
             inverseJoinColumns =
             @JoinColumn(name = "fromManagerId"),
             uniqueConstraints = {@UniqueConstraint(columnNames={"toManagerId", "fromManagerId"})})
-    private List<Manager> delegatedFrom = new ArrayList<>();
+    private List<Manager> managerDelegatedFrom = new ArrayList<>();
 
     public Manager() {
     }
@@ -125,6 +130,46 @@ public class Manager extends DomainObject {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Subdivision getSubdivision() {
+        return subdivision;
+    }
+
+    public void setSubdivision(Subdivision subdivision) {
+        this.subdivision = subdivision;
+    }
+
+    public Manager getBoss() {
+        return boss;
+    }
+
+    public void setBoss(Manager boss) {
+        this.boss = boss;
+    }
+
+    public List<Manager> getSubordinates() {
+        return subordinates;
+    }
+
+    public void setSubordinates(List<Manager> subordinates) {
+        this.subordinates = subordinates;
+    }
+
+    public List<Manager> getDelegatedTo() {
+        return managerDelegatedTo;
+    }
+
+    public void setDelegatedTo(List<Manager> managerDelegatedTo) {
+        this.managerDelegatedTo = managerDelegatedTo;
+    }
+
+    public List<Manager> getDelegatedFrom() {
+        return managerDelegatedFrom;
+    }
+
+    public void setDelegatedFrom(List<Manager> managerDelegatedFrom) {
+        this.managerDelegatedFrom = managerDelegatedFrom;
     }
 
     public String getInitials(){

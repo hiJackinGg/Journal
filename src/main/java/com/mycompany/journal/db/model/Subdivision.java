@@ -17,7 +17,7 @@ public class Subdivision extends DomainObject {
     @JoinColumn(name = "parentSubdivisionID")
     Subdivision parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     List<Subdivision> children = new ArrayList<>();
 
 

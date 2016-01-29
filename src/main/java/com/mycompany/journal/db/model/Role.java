@@ -1,23 +1,12 @@
 package com.mycompany.journal.db.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-public class Role extends DomainObject {
+public enum Role {
 
-    private String name;
+    ROLE_ADMIN,
 
-    /*@OneToMany()
-    private Collection<Manager> managers = new ArrayList<>();*/
+    ROLE_USER
 
-    public Role() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
