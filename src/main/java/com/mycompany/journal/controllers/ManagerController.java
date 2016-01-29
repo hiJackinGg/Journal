@@ -6,6 +6,7 @@ import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/manager")
+@RequestMapping("/")
 public class ManagerController {
 
     @Qualifier("springDataJpaManagerService")
@@ -33,11 +34,22 @@ public class ManagerController {
     @Autowired
     private PositionService positionService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping( method = RequestMethod.GET)
+    public String showOwnManagers(ModelMap model) {
+        List<Manager> managerList = managerService.findAll();
+        model.addAttribute("managerList", managerList);
+//        List<Manager> managerList = new ArrayList<>();
+//
+//        Manager manager = managerService.findByLogin("admin");
+//        managerList.add(manager);
+//        model.addAttribute("managerList", managerList);
+        return "manager_table";
+    }
+
+    @RequestMapping(value = "managers", method = RequestMethod.GET)
     public String showManagers(ModelMap model) {
         List<Manager> managerList = managerService.findAll();
         model.addAttribute("managerList", managerList);
-
         return "manager_table";
     }
 
