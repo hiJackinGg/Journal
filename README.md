@@ -1,6 +1,6 @@
 # Journal
 System that helps to keep records for employees attendance on enterprise.
 
-Система, которая озволяет вести учет посещаемости сотрудников предприятия.
+Used technologies: Spring framework, Spring MVC, Spring security, Spring Data, JPA, JUnit, Maven.
 
-Программа еще в процессе разработки.
+Project on development stage.
