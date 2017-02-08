@@ -76,47 +76,47 @@ public class ManagerControllerTest extends AbstractControllerTest {
         assertEquals(1, modelManagers.size());
     }
 
-    @Test//the test works incorrectly
-    public void testCreate() {
-
-        final Manager newManager = new Manager();
-        newManager.setId(2L);
-        newManager.setFirstName("John");
-        newManager.setLastName("Smith");
-
-        sectorService = mock(SubdivisionService.class);
-        positionService = mock(PositionService.class);
-
-        managerService = mock(ManagerService.class);
-        when(managerService.save(newManager)).thenAnswer( new Answer<Manager>() {
-            public Manager answer(InvocationOnMock invocation) throws Throwable {
-                managers.add(newManager);
-                return newManager;
-            }
-        });
-
-        ManagerController managerController = new ManagerController();
-        ReflectionTestUtils.setField(managerController, "sectorService", sectorService);
-        ReflectionTestUtils.setField(managerController, "positionService", positionService);
-
-        ExtendedModelMap model = new ExtendedModelMap();
-
-        String result = managerController.createManager(
-                newManager.getFirstName(),
-                newManager.getLastName(),
-                null,
-                null,
-                null,
-                0,
-                0,
-                model
-
-        );
-
-        assertNotNull(result);
-        assertEquals("redirect:/", result);
-        assertEquals(2, managers.size());
-    }
+//    @Test//the test works incorrectly
+//    public void testCreate() {
+//
+//        final Manager newManager = new Manager();
+//        newManager.setId(2L);
+//        newManager.setFirstName("John");
+//        newManager.setLastName("Smith");
+//
+//        sectorService = mock(SubdivisionService.class);
+//        positionService = mock(PositionService.class);
+//
+//        managerService = mock(ManagerService.class);
+//        when(managerService.save(newManager)).thenAnswer( new Answer<Manager>() {
+//            public Manager answer(InvocationOnMock invocation) throws Throwable {
+//                managers.add(newManager);
+//                return newManager;
+//            }
+//        });
+//
+//        ManagerController managerController = new ManagerController();
+//        ReflectionTestUtils.setField(managerController, "sectorService", sectorService);
+//        ReflectionTestUtils.setField(managerController, "positionService", positionService);
+//
+//        ExtendedModelMap model = new ExtendedModelMap();
+//
+//        String result = managerController.createManager(
+//                newManager.getFirstName(),
+//                newManager.getLastName(),
+//                null,
+//                null,
+//                null,
+//                0,
+//                0,
+//                model
+//
+//        );
+//
+//        assertNotNull(result);
+//        assertEquals("redirect:/", result);
+//        assertEquals(2, managers.size());
+//    }
 
     @Test
     public void testCreateManagerStart() throws Exception {

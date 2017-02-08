@@ -8,9 +8,12 @@
 
 
     <http use-expressions="true" access-denied-page="/accessDenied">
-        <intercept-url pattern="/manager" access="hasRole('ROLE_USER') "/>
-        <intercept-url pattern="/logpresence" access="hasRole('ROLE_USER') "/>
+        <intercept-url pattern="/manager" access="hasRole('ROLE_ADMIN') "/>
+        <intercept-url pattern="/logpresenceList" access="hasRole('ROLE_ADMIN') "/>
         <intercept-url pattern="/createManagerStart" access="hasRole('ROLE_ADMIN') "/>
+        <intercept-url pattern="/createLog" access="hasRole('ROLE_ADMIN') "/>
+        <intercept-url pattern="/" access="hasRole('ROLE_ADMIN') "/>
+        <!--<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN') "/>-->
 
         <form-login login-page="/login"
                     default-target-url="/managers"
@@ -31,6 +34,13 @@
 
         </authentication-provider>
     </authentication-manager>
+
+    <!--updates login date of user and inserts initial data-->
+    <beans:bean id="authenticationSuccessHandler" class="com.mycompany.journal.config.MyAuthenticationSuccessHandler">
+        <beans:property name="loginService" ref="springDataJpaLoginService" />
+        <beans:property name="managerService" ref="springDataJpaManagerService" />
+        <beans:property name="logpresenceService" ref="springDataJpaLogpresenceService" />
+    </beans:bean>
 
 
 </beans:beans>

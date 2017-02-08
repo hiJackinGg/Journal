@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service("springDataJpaReasonService")
@@ -27,6 +28,11 @@ public class ReasonServiceImpl implements ReasonService {
         }
 
         return reasonRepository.save(entity);
+    }
+
+    @Override
+    public Iterable<Reason> saveEntities(Iterable<Reason> entities) {
+        return null;
     }
 
     @Override
@@ -90,5 +96,10 @@ public class ReasonServiceImpl implements ReasonService {
             direction = Sort.Direction.DESC;
 
         return reasonRepository.findAll(new Sort(direction, propertySortBy));
+    }
+
+    @Override
+    public Iterable<Reason> findAll(Collection<Reason> entities) {
+        return null;
     }
 }

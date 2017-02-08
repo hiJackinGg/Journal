@@ -7,12 +7,19 @@ import com.mycompany.journal.services.LogpresenceService;
 import com.mycompany.journal.services.ManagerService;
 import com.mysql.jdbc.log.Log;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -36,12 +43,12 @@ public class MyAuthenticationSuccessHandler implements ApplicationListener<Authe
 
         for(Manager m : managerList) {
             Logpresence log = new Logpresence();
-            log.setDateAbsence(new GregorianCalendar());
+            log.setDateAbsence(new LocalDateTime());
             log.setManager(m);
             logList.add(log);
         }
 
-        logpresenceService.save(logList);
+        logpresenceService.saveEntities(logList);
     }
 
     @Override
@@ -51,7 +58,17 @@ public class MyAuthenticationSuccessHandler implements ApplicationListener<Authe
 
         loginService.updateLoginDate(userName);
 
-        Long count = logpresenceService.count(new GregorianCalendar());
+        Calendar calendar = Calendar.getInstance();
+
+        //calendar.setTime( new Date() );
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        LocalDateTime date = new LocalDateTime(calendar);
+
+        Long count = logpresenceService.count(date);
         if (count == 0)
             this.insertDefaultData(); //insert if there isn't new default inserted data for today
 

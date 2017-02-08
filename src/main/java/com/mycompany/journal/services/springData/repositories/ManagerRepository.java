@@ -24,6 +24,11 @@ public interface ManagerRepository extends JpaRepository<Manager, Long > {
 
     List<Manager> findByPositionName(String title);
 
+    @Query("select l.manager from Login l where l.username = ?1  ")
+    Manager findManagerByLogin(String username);
+
+//select * from manager inner join login on login.managerid = manager.id where username = 'admin'
+
 
     @Modifying
     @Transactional

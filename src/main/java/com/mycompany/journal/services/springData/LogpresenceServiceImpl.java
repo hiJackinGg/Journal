@@ -1,14 +1,16 @@
 package com.mycompany.journal.services.springData;
 
 import com.mycompany.journal.db.model.Logpresence;
+import com.mycompany.journal.db.model.Manager;
 import com.mycompany.journal.services.LogpresenceService;
 import com.mycompany.journal.services.springData.repositories.LogpresenceRepository;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service("springDataJpaLogpresenceService")
 public class LogpresenceServiceImpl implements LogpresenceService {
@@ -25,6 +27,11 @@ public class LogpresenceServiceImpl implements LogpresenceService {
         }
 
         return logpresenceRepository.save(entity);
+    }
+
+    @Override
+    public Iterable<Logpresence> saveEntities(Iterable<Logpresence> entities) {
+        return logpresenceRepository.save(entities);
     }
 
     @Override
@@ -91,6 +98,31 @@ public class LogpresenceServiceImpl implements LogpresenceService {
     }
 
     @Override
+    public Iterable<Logpresence> findAll(Collection<Logpresence> entities) {
+        Collection<Long> ids = new ArrayList<>(entities.size());
+        for(Logpresence log : entities){
+            ids.add(log.getId());
+        }
+
+        return logpresenceRepository.findAll(ids);
+    }
+
+    @Override
+    public List<Logpresence> findLogsByManagers(Iterable<Manager> entities) {
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        LocalDateTime date = new LocalDateTime(calendar);
+
+        return logpresenceRepository.findLogsByManagers(entities, date);
+    }
+
+    @Override
     public List<Logpresence> findAllWhoNotLate() {
         return logpresenceRepository.findAllWhoNotLate();
     }
@@ -103,6 +135,11 @@ public class LogpresenceServiceImpl implements LogpresenceService {
     @Override
     public List<Logpresence> findForPeriod(Date date1, Date date2) {
         return logpresenceRepository.findForPeriod(date1, date2);
+    }
+
+    @Override
+    public long count(LocalDateTime field) {
+        return logpresenceRepository.count(field);
     }
 
     public void setLogpresenceRepository(LogpresenceRepository logpresenceRepository) {

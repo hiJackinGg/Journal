@@ -1,6 +1,7 @@
 package com.mycompany.journal.db.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +9,18 @@ import java.util.List;
 public class Subdivision extends DomainObject {
 
 
+    @NotNull(message="Subdivision name can't be null")
     private String name;
 
+    @NotNull(message="Subdivision level can't be null")
     @Enumerated(EnumType.STRING)
     private SubdivisionLevel level;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parentSubdivisionID")
     Subdivision parent;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
     List<Subdivision> children = new ArrayList<>();
 
 
@@ -63,5 +66,14 @@ public class Subdivision extends DomainObject {
 
     public void setLevel(SubdivisionLevel level) {
         this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Subdivision{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", level=").append(level);
+        sb.append('}');
+        return sb.toString();
     }
 }

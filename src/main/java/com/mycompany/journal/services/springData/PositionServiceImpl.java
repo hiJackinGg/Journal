@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service("springDataJpaPositionService")
@@ -24,6 +25,11 @@ public class PositionServiceImpl implements PositionService {
         }
 
         return positionRepository.save(entity);
+    }
+
+    @Override
+    public Iterable<Position> saveEntities(Iterable<Position> entities) {
+        return null;
     }
 
     @Override
@@ -87,6 +93,11 @@ public class PositionServiceImpl implements PositionService {
             direction = Sort.Direction.DESC;
 
         return positionRepository.findAll(new Sort(direction, propertySortBy));
+    }
+
+    @Override
+    public Iterable<Position> findAll(Collection<Position> entities) {
+        return null;
     }
 
 }

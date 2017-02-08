@@ -3,23 +3,25 @@ package com.mycompany.journal.controllers;
 import com.mycompany.journal.db.model.*;
 import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.*;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/manager")
 public class ManagerController {
 
     @Qualifier("springDataJpaManagerService")
@@ -34,17 +36,58 @@ public class ManagerController {
     @Autowired
     private PositionService positionService;
 
-    @RequestMapping( method = RequestMethod.GET)
-    public String showOwnManagers(ModelMap model) {
-        List<Manager> managerList = managerService.findAll();
-        model.addAttribute("managerList", managerList);
-//        List<Manager> managerList = new ArrayList<>();
-//
-//        Manager manager = managerService.findByLogin("admin");
-//        managerList.add(manager);
+//    @RequestMapping( method = RequestMethod.GET)
+//    public String showOwnManagers(ModelMap model) {
+//        List<Manager> managerList = managerService.findAll();
 //        model.addAttribute("managerList", managerList);
-        return "manager_table";
-    }
+////        List<Manager> managerList = new ArrayList<>();
+////
+////        Manager manager = managerService.findByLogin("admin");
+////        managerList.add(manager);
+////        model.addAttribute("managerList", managerList);
+//        return "manager_table";
+//    }
+
+//    @InitBinder
+//    public void initSubdivisionBinder(WebDataBinder dataBinder) {
+//
+//        dataBinder.registerCustomEditor(Subdivision.class, new PropertyEditorSupport(){
+//            @Override
+//            public void setAsText(String id) {
+//
+//                Long subdivisionId = null;
+//                try {
+//                    subdivisionId = Long.valueOf(id);
+//                } catch (NumberFormatException ex) {
+//                    setValue(null);
+//                    return;
+//                }
+//                setValue(subdivisionService.findById(subdivisionId));
+//            }
+//        });
+//    }
+//
+//
+//    @InitBinder
+//    public void initPositionBinder(WebDataBinder dataBinder) {
+//
+//        dataBinder.registerCustomEditor(Position.class, new PropertyEditorSupport(){
+//
+//            @Override
+//            public void setAsText(String id) {
+//
+//                Long positionId = null;
+//                try {
+//                    positionId = Long.valueOf(id);
+//                }
+//                catch (NumberFormatException ex){
+//                    setValue(null);
+//                    return;
+//                }
+//                setValue(managerService.findById(positionId));
+//            }
+//        });
+//    }
 
     @RequestMapping(value = "managers", method = RequestMethod.GET)
     public String showManagers(ModelMap model) {
@@ -60,36 +103,78 @@ public class ManagerController {
 
         model.addAttribute("subdivisionList", subdivisionList);
         model.addAttribute("positionList", positionList);
+        model.addAttribute("manager", new Manager());
 
         return "manager_create";
     }
 
-    @RequestMapping(value = "createManager", method = RequestMethod.GET)
-    public String createManager(
-            @RequestParam(value = "firstName") String firstName,
-            @RequestParam(value = "lastName") String lastName,
-            @RequestParam(value = "middleName") String middleName,
-            @RequestParam(value = "personnel") String personnel,
-            @RequestParam(value = "email") String email,
-            @RequestParam(value = "sec") long subdivisionId,
-            @RequestParam(value = "pos") long positionId,
+    @RequestMapping(value = "updateManager", method = RequestMethod.POST)
+    public String updateManager(
+            @Valid @ModelAttribute("manager") Manager manager, BindingResult result,
             ModelMap model) {
 
-        Manager manager = new Manager();
-        manager.setFirstName(firstName);
-        manager.setLastName(lastName);
-        manager.setMiddleName(middleName);
-        manager.setPersonnel(personnel);
-        manager.setEmail(email);
-        if(subdivisionId != 0)
-        manager.setSector(subdivisionService.findById(subdivisionId));
-        if(positionId != 0)
-        manager.setPosition(positionService.findById(positionId));
+        if (result.hasErrors()) {
+            List<Subdivision> subdivisionList = subdivisionService.findAll();
+            List<Position> positionList = positionService.findAll();
 
-        managerService.save(manager);
+            model.addAttribute("subdivisionList", subdivisionList);
+            model.addAttribute("positionList", positionList);
+            model.addAttribute("manager", manager);
+            System.err.println("ERROR");
+            System.err.println(result.getAllErrors());
+            return "manager_update";
+        } else {
+            System.out.println(manager.getInitials());
+            System.out.println(manager.getPosition());
+            System.out.println(manager.getSubdivision().getName());
+        }
+
+        //managerService.save(manager);
 
 
-        return "redirect:/manager";
+        return "redirect:/managers";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String updateManagerStart(@PathVariable("id") Long id, ModelMap model) {
+
+        Manager manager = managerService.findById(id);
+        model.addAttribute("manager", manager);
+
+        List<Subdivision> subdivisionList = subdivisionService.findAll();
+        List<Position> positionList = positionService.findAll();
+
+        model.addAttribute("subdivisionList", subdivisionList);
+        model.addAttribute("positionList", positionList);
+
+        return "manager_create";
+    }
+
+    @RequestMapping(value = "createManager", method = RequestMethod.POST)
+    public String createManager(
+            @Valid @ModelAttribute("manager") Manager manager, BindingResult result,
+            ModelMap model) {
+
+        if (result.hasErrors()) {
+            List<Subdivision> subdivisionList = subdivisionService.findAll();
+            List<Position> positionList = positionService.findAll();
+
+            model.addAttribute("subdivisionList", subdivisionList);
+            model.addAttribute("positionList", positionList);
+            model.addAttribute("manager", manager);
+            System.err.println("ERROR");
+            System.err.println(result.getAllErrors());
+            return "manager_create";
+        } else {
+            System.out.println(manager.getInitials());
+            System.out.println(manager.getPosition());
+            System.out.println(manager.getSubdivision().getName());
+        }
+
+        //managerService.save(manager);
+
+
+        return "redirect:/managers";
     }
 
     @RequestMapping(value = "sortManagers", method = RequestMethod.GET)

@@ -1,13 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="resources/css/style1.css"/>
+    <%--<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/style1.css"/>--%>
 </head>
 <body>
 
+<spring:eval expression="log.id == null ? 'Create new record' : 'Update record' " var="formTitle"/>
 
 <div id="container">
 
@@ -34,49 +37,69 @@
 
     </div>
 
+    <h1>${formTitle}</h1>
+
     <div id="content">
 
 
 
-    <form action="${pageContext.request.contextPath}/logpresence/createLog">
+        <form:form commandName="log" name = "log" action="${pageContext.request.contextPath}/createLog" method="post">
+            <table>
+                <tr>
+                    <th><h2>Choose manager</h2></th>
+                    <td>
+                        <form:select path="manager">
+                            <form:option value="" label="--Please Select"/>
+                            <form:options items="${managerList}" itemValue="id" itemLabel="firstName"/>
+                        </form:select>
+                    </td>
+                    <td><form:errors path="manager" cssclass="error"></form:errors></td>
+
+                </tr>
+                <tr>
+                    <th><h2>Choose reason</h2></th>
+                    <td>
+                        <form:select path="reason">
+                            <form:option value="" label="--Please Select"/>
+                            <form:options items="${reasonList}" itemValue="id" itemLabel="name"/>
+                        </form:select>
+                    </td>
+                    <td><form:errors path="reason" cssclass="error"></form:errors></td>
+                </tr>
+                <%--<tr>--%>
+                    <%--<th>Date absence:</th>--%>
+                    <%--<td><form:input path="dateAbsence" type="text" name = "dateAbsence"/></td>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+                <tr>
+                    <th>Lateness Time:</th>
+                    <td><form:input path="latenessTime" type="text" name="latenessTime" value="none"/></td>
+                    <td><form:errors path="latenessTime" cssclass="error"></form:errors></td>
+                </tr>
+                <tr>
+                    <th>Note:</th>
+                    <td><form:textarea path="note" cols="50" rows="8"
+                                       style="resize: none;"
+                                       maxlength="600"
+                                       onKeyPress="return ( this.value.length < 600 );"
+                                       placeholder="Maximun 600 characters.."></form:textarea></td>
+                    <td><form:errors path="firstName" cssclass="error"></form:errors></td>
+                </tr>
+                <tr>
+                    <input type="submit" value="Save">
+                </tr>
+            </table>
+
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+            <!-- end id-form  -->
+        </form:form>
 
 
-    <h2>Choose manager</h2><br>
-    <select name="man" >
-        <option value="0">none</option>
-        <c:forEach items="${managerList}" var="manager">
-            <option value="${manager.getId()}">${manager.getInitials()}</option>
-        </c:forEach>
-    </select>
-
-    <h2>Choose reason</h2><br>
-    <select name="res">
-        <option value="0">none</option>
-        <c:forEach items="${reasonList}" var="reason">
-            <option value="${reason.getId()}">${reason.getName()}</option>
-        </c:forEach>
-    </select>
-
-    <p>
-        <label>Date absence</label>
-        <input type="text"  name="dateAbsence">
-    </p>
-    <p>
-        <label>Lateness Time?</label>
-        <input type="text"  name="latenessTime" value="none">
-    </p>
-    <p>
-        <label>Note</label>
-        <input type="text"  name="note">
-    </p>
 
 
 
-    <p>
-        <input type="submit" value="Add">
-    </p>
-
-</form>
 
     </div>
 </div>

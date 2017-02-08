@@ -74,6 +74,11 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
     }
 
     @Override
+    public Iterable<T> saveEntities(Iterable<T> entities) {
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly=true)
     public List<T> findAll() {
 
@@ -89,6 +94,11 @@ public abstract class GenericServiceImpl<T extends DomainObject> implements Gene
             //logging
             return new ArrayList();
         }
+    }
+
+   @Override
+    public Iterable<T> findAll(Collection<T> entities) {
+        return null;
     }
 
     @Override

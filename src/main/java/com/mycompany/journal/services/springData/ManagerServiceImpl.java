@@ -1,23 +1,46 @@
 package com.mycompany.journal.services.springData;
 
+import com.mycompany.journal.config.ManagerParser;
 import com.mycompany.journal.db.model.*;
 import com.mycompany.journal.services.*;
 import com.mycompany.journal.services.springData.repositories.ManagerRepository;
 import com.mycompany.journal.services.springData.repositories.PositionRepository;
 import com.mycompany.journal.services.springData.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service("springDataJpaManagerService")
+@Repository
 public class ManagerServiceImpl implements ManagerService {
 
     @Autowired
     private ManagerRepository managerRepository;
+
+    @Override
+    public Manager findByLogin(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Argument is incorrect !");
+        }
+
+        return managerRepository.findManagerByLogin(username);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<Manager> getSubordinatesList(String username) {
+        Manager manager = this.findByLogin(username);
+        Set<Manager> managerSet = ManagerParser.findSubordinates(manager);
+
+        return Collections.unmodifiableSet(managerSet);
+    }
 
     @Override
     public Manager save(Manager entity) {
@@ -27,6 +50,11 @@ public class ManagerServiceImpl implements ManagerService {
         }
 
         return managerRepository.save(entity);
+    }
+
+    @Override
+    public Iterable<Manager> saveEntities(Iterable<Manager> entities) {
+        return null;
     }
 
     @Override
@@ -49,10 +77,10 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager findById(Long id) {
 
-        if (id == null) {
-            throw new IllegalArgumentException(
-                    "Argument is null !");
-        }
+//        if (id == null) {
+//            throw new IllegalArgumentException(
+//                    "Argument is null !");
+//        }
 
         return managerRepository.findOne(id);
     }
@@ -90,6 +118,11 @@ public class ManagerServiceImpl implements ManagerService {
             direction = Direction.DESC;
 
         return managerRepository.findAll(new Sort(direction, propertySortBy));
+    }
+
+    @Override
+    public Iterable<Manager> findAll(Collection<Manager> entities) {
+        return null;
     }
 
     @Override

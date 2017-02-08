@@ -8,17 +8,21 @@ import java.util.List;
 
 public interface GenericService<T extends DomainObject> {
 
-    public T save(T entity);
+    T save(T entity);
 
-    public List<T> findAll();
+    Iterable<T> saveEntities(Iterable<T> entities);
 
-    public void delete(T entity);
+    List<T> findAll();
 
-    public T findById(Long id);
+    void delete(T entity);
 
-    public void delete(Long id);
+    T findById(Long id);
 
-    public long getCount();
+    void delete(Long id);
 
-    public List<T> findSorted(String propertySortBy, boolean asc);
+    long getCount();
+
+    List<T> findSorted(String propertySortBy, boolean asc);
+
+    Iterable<T> findAll(Collection<T> entities);
 }

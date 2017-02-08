@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -19,6 +20,16 @@ public class ManagerServiceImpl extends GenericServiceImpl<Manager> implements M
     @Override
     @Transactional(readOnly = true)
     public List<Manager> findOneProperty(String propertyName, String value) {
+        return null;
+    }
+
+    @Override
+    public Manager findByLogin(String username) {
+        return null;
+    }
+
+    @Override
+    public Set<Manager> getSubordinatesList(String username) {
         return null;
     }
 }

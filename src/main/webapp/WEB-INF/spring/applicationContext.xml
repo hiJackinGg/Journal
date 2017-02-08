@@ -16,4 +16,6 @@
 
     <jpa:repositories base-package="com.mycompany.journal.services.springData.repositories" />
 
+
+
 </beans>

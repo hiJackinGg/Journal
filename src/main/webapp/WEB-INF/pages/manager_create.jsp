@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style1.css"/>
+    <%--<link rel="stylesheet" type="text/css" href="resources/css/style1.css"/>--%>
 
 </head>
 <body>
@@ -33,50 +34,73 @@
 
     </div>
 
+
     <div id="content">
-        <form action="${pageContext.request.contextPath}/createManager">
-            <p>
-                <label >first name?</label>
-                <input type="text"  name="firstName" >
-            </p>
-            <p>
-                <label>last name?</label>
-                <input type="text"  name="lastName">
-            </p>
-    <p>
-        <label>middle name?</label>
-        <input type="text"  name="middleName">
-    </p>
-    <p>
-        <label >personnel</label>
-        <input type="text"  name="personnel">
-    </p>
-    <p>
-        <label >email</label>
-        <input type="text"  name="email">
-    </p>
+        <form:form commandName="manager" name = "manager" action="${pageContext.request.contextPath}/createManager" method="post">
 
-    <h2>Choose section</h2><br>
-    <select name="sec" >
-        <option value="0">none</option>
-        <c:forEach items="${sectorList}" var="sector">
-            <option value="${sector.getId()}">${sector.getName()}</option>
-        </c:forEach>
-    </select>
+            <table>
 
-    <h2>Choose position</h2><br>
-    <select name="pos">
-        <option value="0">none</option>
-        <c:forEach items="${positionList}" var="position">
-            <option value="${position.getId()}">${position.getName()}</option>
-        </c:forEach>
-    </select>
+                <tr>
+                    <th>First name</th>
+                    <td><form:input path="firstName" type="text" name="firstName"/></td>
+                    <td><form:errors path="firstName" cssclass="error"></form:errors></td>
+                </tr>
 
+                <tr>
+                    <th>Last name</th>
+                    <td><form:input path="lastName" type="text" name="lastName"/></td>
+                    <td><form:errors path="lastName" cssclass="error"></form:errors></td>
+                </tr>
 
-    <p>
-        <input type="submit" value="Add">
-    </p>
-</form>
+                <tr>
+                    <th>Middle name</th>
+                    <td><form:input path="middleName" type="text" name="middleName"/></td>
+                    <td><form:errors path="middleName" cssclass="error"></form:errors></td>
+                </tr>
+
+                <tr>
+                    <th>Personnel</th>
+                    <td><form:input path="personnel" type="text" name="personnel"/></td>
+                    <td><form:errors path="personnel" cssclass="error"></form:errors></td>
+                </tr>
+
+                <tr>
+                    <th>email</th>
+                    <td><form:input path="email" type="text" name="email"/></td>
+                    <td><form:errors path="email" cssclass="error"></form:errors></td>
+                </tr>
+
+                <tr>
+                    <th><h2>Choose position</h2></th>
+                    <td>
+                        <form:select path="position">
+                            <form:option value="" label="--Please Select"/>
+                            <form:options items="${positionList}" itemValue="id" itemLabel="name"/>
+                        </form:select>
+                    </td>
+                    <td><form:errors path="position" cssclass="error"></form:errors></td>
+
+                </tr>
+                <tr>
+                    <th><h2>Choose subdivision</h2></th>
+                    <td>
+                        <form:select path="subdivision">
+                            <form:option value="" label="--Please Select"/>
+                            <form:options items="${subdivisionList}" itemValue="id" itemLabel="name"/>
+                        </form:select>
+                    </td>
+                    <td><form:errors path="subdivision" cssclass="error"></form:errors></td>
+                </tr>
+
+                <tr>
+                    <input type="submit" value="Save">
+                </tr>
+            </table>
+
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+</form:form>
 
     </div>
 </div>

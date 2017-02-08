@@ -33,7 +33,8 @@ public abstract class TestGenericServiceAbstract <T extends DomainObject> {
         assertNotNull("Application context was not created", appContext);
     }
 
-    /** Get the service to use for testing */
+    /** Get the service to use for testing
+     */
     protected abstract GenericService<T> getService();
 
     /** Get the first entity for testing */

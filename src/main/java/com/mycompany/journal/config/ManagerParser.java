@@ -21,8 +21,10 @@ public class ManagerParser {
 
     private static void findSubordinates(Manager manager, boolean isUser, Set<Manager> set) {
 
-        if(!isUser)
-            set.add(manager);
+        if(!isUser) {
+            if (!set.add(manager))
+                return;
+        }
 
         for(Manager m : manager.getDelegatedFrom()){
             findSubordinates(m, false, set);

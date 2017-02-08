@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class SubdivisionServiceImpl implements SubdivisionService {
     @Override
     public Subdivision save(Subdivision entity) {
         return subdivisionRepository.save(entity);
+    }
+
+    @Override
+    public Iterable<Subdivision> saveEntities(Iterable<Subdivision> entities) {
+        return null;
     }
 
     @Override
@@ -65,5 +71,10 @@ public class SubdivisionServiceImpl implements SubdivisionService {
             direction = Sort.Direction.DESC;
 
         return subdivisionRepository.findAll(new Sort(direction, propertySortBy));
+    }
+
+    @Override
+    public Iterable<Subdivision> findAll(Collection<Subdivision> entities) {
+        return null;
     }
 }

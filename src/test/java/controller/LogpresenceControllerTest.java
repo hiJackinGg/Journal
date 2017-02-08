@@ -7,6 +7,9 @@ import com.mycompany.journal.db.model.Logpresence;
 import com.mycompany.journal.db.model.Manager;
 import com.mycompany.journal.db.model.Reason;
 import com.mycompany.journal.services.*;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -17,6 +20,7 @@ import org.springframework.ui.ExtendedModelMap;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -52,7 +56,7 @@ public class LogpresenceControllerTest extends AbstractControllerTest {
 
         Logpresence logpresence = new Logpresence();
         logpresence.setId(1L);
-        logpresence.setDateAbsence(new Date());
+        logpresence.setDateAbsence(new LocalDateTime());
         logpresence.setLatenessTime(20);
         logpresence.setManager(manager);
         logpresence.setReason(reason);
@@ -92,7 +96,7 @@ public class LogpresenceControllerTest extends AbstractControllerTest {
 
         final Logpresence newLogpresence = new Logpresence();
         newLogpresence.setId(2L);
-        newLogpresence.setDateAbsence(new Date());
+        newLogpresence.setDateAbsence(new LocalDateTime());
         newLogpresence.setLatenessTime(15);
         newLogpresence.setNote("some text");
 

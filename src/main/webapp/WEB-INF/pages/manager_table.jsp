@@ -9,7 +9,7 @@
 <div id="container">
 
 <div id="sidebar">
-
+<%--<a href="/j_spring_security_logout">logout</a>--%>
     <h2>Tables</h2>
 
 

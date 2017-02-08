@@ -4,12 +4,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 
 @MappedSuperclass
-public abstract class DomainObject {
+public abstract class DomainObject implements Comparable<DomainObject> {
 
+    //@NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
@@ -26,6 +29,11 @@ public abstract class DomainObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(DomainObject that) {
+        return (int) (this.id - that.getId());
     }
 
     @Override
@@ -51,5 +59,13 @@ public abstract class DomainObject {
         } else if (!id.equals(other.id))
             return false;
         return true;
+
+    }
+
+    @Override
+    public String toString() {
+        return "DomainObject{" +
+                "id=" + id +
+                '}';
     }
 }

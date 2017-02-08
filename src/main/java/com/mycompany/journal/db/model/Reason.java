@@ -7,14 +7,18 @@ public class Reason extends DomainObject {
 
     private String name;
 
-    private String note;
+    private String description;
 
     public Reason() {
     }
 
+    public Reason(Long id) {
+        this.id = id;
+    }
+
     public Reason(String name, String note) {
         this.name = name;
-        this.note = note;
+        this.description = note;
     }
 
     public Reason(long id, String name) {
@@ -32,10 +36,20 @@ public class Reason extends DomainObject {
     }
 
     public String getNote() {
-        return note;
+        return description;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setNote(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Reason{" +
+                "name='" + name + '\'' +
+                ", note='" + description + '\'' +
+                '}';
     }
 }
+
+
